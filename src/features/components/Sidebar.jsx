@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
-import { Create, FiberManualRecord } from '@mui/icons-material';
+import { Apps, BookmarkBorder, Create, Drafts, ExpandLess, FiberManualRecord, FileCopy, Inbox, InsertComment, PeopleAlt } from '@mui/icons-material';
 import React from 'react';
+import SidebarOptions from './SidebarOptions';
 
 const SidebarContainer = styled.div`
     color: white;
     background-color: var(--slack-color);
     display: flex;
+    flex-direction: column;
     flex: 0.3;
     min-height: 100vh;
     border-top: 1px solid #49274b ;
@@ -51,7 +53,7 @@ const SidebarInfo = styled.div`
 
 
 
-`
+`;
 
 const Sidebar = () => {
     return (
@@ -64,8 +66,16 @@ const Sidebar = () => {
                         Barni Molnar
                     </h3>
                 </SidebarInfo>
-                <Create/>
+                <Create />
             </SidebarHeader>
+            <SidebarOptions icon={InsertComment} title='Threads' />
+            <SidebarOptions icon={Inbox} title='Mentiosn & reactions' />
+            <SidebarOptions icon={Drafts} title='Saved items' />
+            <SidebarOptions icon={BookmarkBorder} title='Channel browser' />
+            <SidebarOptions icon={PeopleAlt} title='People & user groups' />
+            <SidebarOptions icon={Apps} title='Apps' />
+            <SidebarOptions icon={FileCopy} title='File browser' />
+            <SidebarOptions icon={ExpandLess} title='Show less' />
         </SidebarContainer>
     );
 };

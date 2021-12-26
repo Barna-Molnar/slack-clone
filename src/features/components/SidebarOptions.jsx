@@ -3,16 +3,16 @@ import styled from '@emotion/styled';
 import React from 'react'
 
 
-const SidebarOptionsStyle = styled.div`
+const SidebarOptionsContainer = styled.div`
 
 
 `;
 
-const SidebarOptions = () => {
+const SidebarOptions = ({icon: Icon, title}) => {
     return (
-        <div>
-            
-        </div>
+        <SidebarOptionsContainer>
+            {<Icon/>}{title}
+        </SidebarOptionsContainer>
     )
 }
 
