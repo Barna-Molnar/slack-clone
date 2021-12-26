@@ -1,11 +1,20 @@
 import React from 'react'
 import Header from './Header';
+import Sidebar from './Sidebar';
+import styled from 'styled-components';
+
+const DIV = styled.div`
+display: flex;
+flex-direction: column;
+height: 100vh;
+`
 
 const Home = () => {
     return (
-        <div>
+        <DIV>
             <Header/>
-        </div>
+            <Sidebar/>
+        </DIV>
     )
 }
 

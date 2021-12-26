@@ -1,13 +1,13 @@
 import React from 'react';
 import { SendIcon, AccessTime, Search, HelpOutline } from '@mui/icons-material';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Avatar } from '@mui/material';
 
 const HeaderContainer = styled.div`
     color:red;
     background-color: var(--slack-color);
     display: flex;
-    position: fixed;
+    position: sticky;
     width: 100%;
     align-items: center;
     justify-content: space-between;
@@ -19,7 +19,7 @@ const HeaderLeft = styled.div`
     flex: 0.3;
     align-items: center;
     margin-left: 20px;
-    > .MuiSvgIcon-root {
+     >.MuiSvgIcon-root {
         margin-left: auto;
         margin-right: 30px;
     }
@@ -27,7 +27,7 @@ const HeaderLeft = styled.div`
 
 const StyledAvatar = styled(Avatar)`
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.15s;
     &:hover {
         opacity: 0.8;
     }
@@ -55,8 +55,13 @@ const HeaderSearch = styled.div`
 const HeaderRight = styled.div`
     display: flex;
     flex: 0.3;
-    justify-content: end;
-    padding: 0 10px 0 0;
+    align-items: flex-end;
+
+    .MuiSvgIcon-root {
+        margin-left: auto;
+        margin-right: 30px;
+    }
+
 `
 
 const Header = () => {
@@ -69,7 +74,6 @@ const Header = () => {
             <HeaderSearch>
                 <Search />
                 <input type="text" placeholder='Search you Club' />
-
             </HeaderSearch>
         <HeaderRight>
             <HelpOutline/>
