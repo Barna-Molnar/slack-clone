@@ -1,19 +1,74 @@
 
 import styled from '@emotion/styled';
-import React from 'react'
+import React, { useEffect } from 'react';
 
 
 const SidebarOptionsContainer = styled.div`
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    padding-left: 3px;
+    cursor: pointer;
+    gap: 10px;
+    transition: all 0.3s ease;
+    border-left: 2px solid transparent;
+    
+    h3 {
+        font-weight: 600;
+    }
+    
+    :hover {
+        opacity: 0.9;
+        background-color: #340e36;
+        border-color: #fff;
+    }
+    
+    > .MuiSvgIcon-root {
+        padding: 10px;
+        font-size: 35px;
+    }
+    
+    
+    `;
+const SidebarOptionsChannel = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 3px;
+
+    span {
+        font-size: 15px;
+        font-weight: 600;
+        padding: 10px;
+        height: 35px;
+        width: 35px;
+    }
+    
+    `;
+
+const SidebarOptions = ({ icon: Icon, title, addChannelOption }) => {
+
+    const addChannel = () => {
+
+    };
+
+    const selectChannel = () => {
+
+    };
 
 
-`;
-
-const SidebarOptions = ({icon: Icon, title}) => {
     return (
-        <SidebarOptionsContainer>
-            {<Icon/>}{title}
-        </SidebarOptionsContainer>
-    )
-}
+        <SidebarOptionsContainer onClick={(e) => addChannelOption && addChannelOption(prompt('cmi'))}>
+            {Icon && <Icon />}
 
-export default SidebarOptions
+            {Icon ? (
+                <h3>{title}</h3>
+            ) : (
+                <SidebarOptionsChannel>
+                    <span>#</span><h3>{title}</h3>
+                </SidebarOptionsChannel>)}
+        </SidebarOptionsContainer>
+    );
+};
+
+export default SidebarOptions;

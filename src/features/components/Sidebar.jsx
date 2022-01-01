@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Apps, BookmarkBorder, Create, Drafts, ExpandLess, FiberManualRecord, FileCopy, Inbox, InsertComment, PeopleAlt } from '@mui/icons-material';
-import React from 'react';
+import { Add, Apps, BookmarkBorder, Create, Drafts, ExpandLess, ExpandMore, FiberManualRecord, FileCopy, Inbox, InsertComment, PeopleAlt } from '@mui/icons-material';
+import React, { useState } from 'react';
 import SidebarOptions from './SidebarOptions';
 
 const SidebarContainer = styled.div`
@@ -13,6 +13,11 @@ const SidebarContainer = styled.div`
     border-top: 1px solid #49274b ;
     max-width: 260px;
 
+    > hr {
+        margin-bottom: 10px ;
+        margin-top: 10px ;
+        border: 1px solid #49274b;
+    }
 `;
 const SidebarHeader = styled.div`
         display: flex;
@@ -56,6 +61,13 @@ const SidebarInfo = styled.div`
 `;
 
 const Sidebar = () => {
+
+    const [channelRom, setChannelRom] = useState([])
+
+    const handleAlertInput= (name)=> setChannelRom([
+        ...channelRom, name
+    ])
+
     return (
         <SidebarContainer>
             <SidebarHeader>
@@ -76,6 +88,14 @@ const Sidebar = () => {
             <SidebarOptions icon={Apps} title='Apps' />
             <SidebarOptions icon={FileCopy} title='File browser' />
             <SidebarOptions icon={ExpandLess} title='Show less' />
+
+            <hr/>
+            <SidebarOptions icon={ExpandMore} title='Channels'/> 
+            <hr />
+            <SidebarOptions icon={Add}  addChannelOption={handleAlertInput} title='Add Channel'/> 
+            {channelRom.map((channel, index)=> (
+                <SidebarOptions  key={index} title={channel}/>
+            ))}
         </SidebarContainer>
     );
 };
