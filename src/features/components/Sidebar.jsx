@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { Add, Apps, BookmarkBorder, Create, Drafts, ExpandLess, ExpandMore, FiberManualRecord, FileCopy, Inbox, InsertComment, PeopleAlt } from '@mui/icons-material';
-import React, { useState } from 'react';
+import React from 'react';
+import { db } from '../../firebase';
 import SidebarOptions from './SidebarOptions';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 const SidebarContainer = styled.div`
     color: white;
@@ -62,11 +64,8 @@ const SidebarInfo = styled.div`
 
 const Sidebar = () => {
 
-    const [channelRom, setChannelRom] = useState([])
-
-    const handleAlertInput= (name)=> setChannelRom([
-        ...channelRom, name
-    ])
+    const [channels] = useCollection(db.collection('rooms'));
+  
 
     return (
         <SidebarContainer>
@@ -92,9 +91,9 @@ const Sidebar = () => {
             <hr/>
             <SidebarOptions icon={ExpandMore} title='Channels'/> 
             <hr />
-            <SidebarOptions icon={Add}  addChannelOption={handleAlertInput} title='Add Channel'/> 
-            {channelRom.map((channel, index)=> (
-                <SidebarOptions  key={index} title={channel}/>
+            <SidebarOptions icon={Add}  addChannelOption title='Add Channel'/> 
+            {channels?.docs.map((doc)=> (
+                <SidebarOptions  key={doc.id} id={doc.id} title={doc.data().name}/>
             ))}
         </SidebarContainer>
     );

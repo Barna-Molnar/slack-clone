@@ -1,6 +1,8 @@
 
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
+import { db } from '../../firebase';
+
 
 
 const SidebarOptionsContainer = styled.div`
@@ -49,7 +51,13 @@ const SidebarOptionsChannel = styled.div`
 const SidebarOptions = ({ icon: Icon, title, addChannelOption }) => {
 
     const addChannel = () => {
+        const channelName = prompt('Please enter a channelName');
 
+        if (channelName) {
+            db.collection('rooms').add({
+                name: channelName
+            });
+        }
     };
 
     const selectChannel = () => {
@@ -58,7 +66,9 @@ const SidebarOptions = ({ icon: Icon, title, addChannelOption }) => {
 
 
     return (
-        <SidebarOptionsContainer onClick={(e) => addChannelOption && addChannelOption(prompt('cmi'))}>
+        <SidebarOptionsContainer
+            onClick={addChannelOption ? addChannel : selectChannel}
+        >
             {Icon && <Icon />}
 
             {Icon ? (
