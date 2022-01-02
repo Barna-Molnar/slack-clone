@@ -6,10 +6,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './features/components/Home';
-import Header from './features/components/Header';
-import Sidebar from './features/components/Sidebar';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 import styled from '@emotion/styled';
+import Chat from './components/Chat';
 
 //Switch was replaced with Routes !!!!
 //component was replaced with elements !!!!
@@ -33,7 +33,9 @@ function App() {
           <AppBody>
             <Sidebar />
             <Routes>
-              <Route path="/" />
+              <Route path="/" element={<Chat/>} >
+             
+              </Route>
             </Routes>
           </AppBody>
         </>

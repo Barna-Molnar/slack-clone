@@ -1,7 +1,9 @@
 
 import styled from '@emotion/styled';
 import React, { useEffect } from 'react';
-import { db } from '../../firebase';
+import { useDispatch } from 'react-redux';
+import { enterRoom, selectRoomId } from '../features/appSlice';
+import { db } from '../firebase';
 
 
 
@@ -35,7 +37,7 @@ const SidebarOptionsContainer = styled.div`
 const SidebarOptionsChannel = styled.div`
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     padding-left: 3px;
 
     span {
@@ -48,7 +50,8 @@ const SidebarOptionsChannel = styled.div`
     
     `;
 
-const SidebarOptions = ({ icon: Icon, title, addChannelOption }) => {
+const SidebarOptions = ({ icon: Icon, title, addChannelOption, id }) => {
+     const dispatch = useDispatch()
 
     const addChannel = () => {
         const channelName = prompt('Please enter a channelName');
@@ -61,7 +64,12 @@ const SidebarOptions = ({ icon: Icon, title, addChannelOption }) => {
     };
 
     const selectChannel = () => {
-
+        if(id) {
+            dispatch(enterRoom({
+                roomId: id
+            }))
+        }
+        
     };
 
 

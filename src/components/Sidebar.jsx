@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Add, Apps, BookmarkBorder, Create, Drafts, ExpandLess, ExpandMore, FiberManualRecord, FileCopy, Inbox, InsertComment, PeopleAlt } from '@mui/icons-material';
 import React from 'react';
-import { db } from '../../firebase';
+import { db } from '../firebase';
 import SidebarOptions from './SidebarOptions';
 import { useCollection } from 'react-firebase-hooks/firestore';
 
@@ -14,6 +14,7 @@ const SidebarContainer = styled.div`
     min-height: 100vh;
     border-top: 1px solid #49274b ;
     max-width: 260px;
+    /* min-width: 200px; */
 
     > hr {
         margin-bottom: 10px ;
