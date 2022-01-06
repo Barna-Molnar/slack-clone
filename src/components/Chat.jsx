@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { InfoOutlined, StarBorderOutlined } from '@mui/icons-material';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectRoomId } from '../features/appSlice';
 import ChatInput from './ChatInput';
@@ -51,22 +51,26 @@ const ChatMessages = styled.div`
 
 
 const Chat = () => {
+    const chatRef = useRef()
     const roomId = useSelector(selectRoomId);
     const [roomDetails] = useDocument(
         roomId && db.collection('rooms').doc(roomId)
     );
 
-    const [roomMessages] = useCollection(
+    const [roomMessages, loading] = useCollection(
         roomId &&
         db.collection('rooms')
             .doc(roomId)
             .collection('messages')
             .orderBy('timestamp', 'asc')
     );
-    console.log(roomMessages?.docs.map(doc => {
-        const { timestamp, message, userPicture, user } = doc.data();
-        return { timestamp, message, userPicture, user };
-    }));
+    
+    useEffect(() => {
+        chatRef.current?.scrollIntoView({behavior: "smooth"});
+    }, [roomId, loading])
+
+
+    
     return (
         <ChatContainer>
             <Header>
@@ -96,8 +100,10 @@ const Chat = () => {
                         />
                     );
                 })}
+                <div ref={chatRef} style={{paddingBottom: '150px'}}/>
             </ChatMessages>
             <ChatInput
+                chatRef={chatRef}
                 channelName={roomDetails?.data().name}
                 channelId={roomId}
             />

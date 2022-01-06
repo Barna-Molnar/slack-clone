@@ -29,7 +29,7 @@ const ChatInputContainer = styled.div`
 `;
 
 
-const ChatInput = ({ channelId, channelName }) => {
+const ChatInput = ({ channelId, channelName, chatRef }) => {
 
     const [inputValue, setInputValue] = useState('')
     const sendMessage = (e) => {
@@ -43,13 +43,15 @@ const ChatInput = ({ channelId, channelName }) => {
         db.collection('rooms').doc(channelId).collection('messages').add({
             message: inputValue,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            user: "BAtman",
-            userPicture: "https://static.wikia.nocookie.net/dc-cinematic-universe/images/6/63/Batman.jpeg/revision/latest?cb=20201019190707&path-prefix=de "
+            user: "Batman",
+            userPicture: "https://cdn.britannica.com/49/127649-050-CCE87173/Heath-Ledger-Joker-Christian-Bale-Batman-2008.jpg"
         });
         // clear input
         setInputValue('');
     };
-
+    chatRef?.current.scrollIntoView({
+        behavior: 'smooth'
+    })
   
     return (
         <ChatInputContainer>
