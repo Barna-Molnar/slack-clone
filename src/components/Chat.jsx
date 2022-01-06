@@ -51,7 +51,7 @@ const ChatMessages = styled.div`
 
 
 const Chat = () => {
-    const chatRef = useRef()
+    const chatRef = useRef();
     const roomId = useSelector(selectRoomId);
     const [roomDetails] = useDocument(
         roomId && db.collection('rooms').doc(roomId)
@@ -64,49 +64,53 @@ const Chat = () => {
             .collection('messages')
             .orderBy('timestamp', 'asc')
     );
-    
+
     useEffect(() => {
-        chatRef.current?.scrollIntoView({behavior: "smooth"});
-    }, [roomId, loading])
+        chatRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [roomId, loading]);
 
 
-    
+
     return (
         <ChatContainer>
-            <Header>
-                <HeaderLeft>
-                    <h4><strong>#{roomDetails?.data().name}</strong></h4>
-                    <StarBorderOutlined />
-                </HeaderLeft>
-                <HeaderRight>
-                    <p>
-                        <InfoOutlined /> Details
-                    </p>
-                </HeaderRight>
+            {roomDetails && roomMessages && (
+                <>
+                    <Header>
+                        <HeaderLeft>
+                            <h4><strong>#{roomDetails?.data().name}</strong></h4>
+                            <StarBorderOutlined />
+                        </HeaderLeft>
+                        <HeaderRight>
+                            <p>
+                                <InfoOutlined /> Details
+                            </p>
+                        </HeaderRight>
 
-            </Header>
-            <ChatMessages>
-                {roomMessages?.docs.map(doc => {
-                    const { timestamp, message, userPicture, user } = doc.data();
+                    </Header>
+                    <ChatMessages>
+                        {roomMessages?.docs.map(doc => {
+                            const { timestamp, message, userPicture, user } = doc.data();
 
-                    return (
-                        <Message
-                            key={doc.id}
-                            message={message}
-                            timestamp={timestamp}
-                            user={user}
-                            userImage={userPicture}
+                            return (
+                                <Message
+                                    key={doc.id}
+                                    message={message}
+                                    timestamp={timestamp}
+                                    user={user}
+                                    userImage={userPicture}
 
-                        />
-                    );
-                })}
-                <div ref={chatRef} style={{paddingBottom: '150px'}}/>
-            </ChatMessages>
-            <ChatInput
-                chatRef={chatRef}
-                channelName={roomDetails?.data().name}
-                channelId={roomId}
-            />
+                                />
+                            );
+                        })}
+                        <div ref={chatRef} style={{ paddingBottom: '200px' }} />
+                    </ChatMessages>
+                    <ChatInput
+                        chatRef={chatRef}
+                        channelName={roomDetails?.data().name}
+                        channelId={roomId}
+                    />
+                </>
+            )}
 
         </ChatContainer>
     );

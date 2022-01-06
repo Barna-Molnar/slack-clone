@@ -26,7 +26,6 @@ const MessageInfo = styled.div`
 `;
 
 const Message = ({ user, userImage, timestamp, message }) => {
-    console.log(userImage);
     return (
         <MessageContainer>
             <img src={userImage} alt='userfoto' />
