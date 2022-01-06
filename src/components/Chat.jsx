@@ -4,7 +4,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectRoomId } from '../features/appSlice';
 import ChatInput from './ChatInput';
-
+import { useDocument, useCollection } from 'react-firebase-hooks/firestore';
+import { db } from '../firebase';
+import Message from './Message';
 
 const ChatContainer = styled.div`
     flex: 0.7;
@@ -45,17 +47,31 @@ const HeaderRight = styled.div`
 const ChatMessages = styled.div`
 
 
-`
+`;
 
 
 const Chat = () => {
-    const roomId = useSelector(selectRoomId)
-    console.log(roomId)
+    const roomId = useSelector(selectRoomId);
+    const [roomDetails] = useDocument(
+        roomId && db.collection('rooms').doc(roomId)
+    );
+
+    const [roomMessages] = useCollection(
+        roomId &&
+        db.collection('rooms')
+            .doc(roomId)
+            .collection('messages')
+            .orderBy('timestamp', 'asc')
+    );
+    console.log(roomMessages?.docs.map(doc => {
+        const { timestamp, message, userPicture, user } = doc.data();
+        return { timestamp, message, userPicture, user };
+    }));
     return (
         <ChatContainer>
             <Header>
                 <HeaderLeft>
-                    <h4><strong>#Room-Name</strong></h4>
+                    <h4><strong>#{roomDetails?.data().name}</strong></h4>
                     <StarBorderOutlined />
                 </HeaderLeft>
                 <HeaderRight>
@@ -66,10 +82,24 @@ const Chat = () => {
 
             </Header>
             <ChatMessages>
+                {roomMessages?.docs.map(doc => {
+                    const { timestamp, message, userPicture, user } = doc.data();
 
+                    return (
+                        <Message
+                            key={doc.id}
+                            message={message}
+                            timestamp={timestamp}
+                            user={user}
+                            userImage={userPicture}
+
+                        />
+                    );
+                })}
             </ChatMessages>
             <ChatInput
-                channelId = {roomId}
+                channelName={roomDetails?.data().name}
+                channelId={roomId}
             />
 
         </ChatContainer>
