@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Button } from '@mui/material';
 import React, { useRef, useState } from 'react';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import firebase from 'firebase/compat/app';
+import { useAuthState} from 'react-firebase-hooks/auth'
 
 const ChatInputContainer = styled.div`
     
@@ -31,10 +32,10 @@ const ChatInputContainer = styled.div`
 
 const ChatInput = ({ channelId, channelName, chatRef }) => {
 
+    const [user]  = useAuthState(auth)
     const [inputValue, setInputValue] = useState('');
     const sendMessage = (e) => {
         e.preventDefault();
-
 
         if (!channelId) {
             return false;
@@ -43,8 +44,8 @@ const ChatInput = ({ channelId, channelName, chatRef }) => {
         db.collection('rooms').doc(channelId).collection('messages').add({
             message: inputValue,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            user: "Batman",
-            userPicture: "https://cdn.britannica.com/49/127649-050-CCE87173/Heath-Ledger-Joker-Christian-Bale-Batman-2008.jpg"
+            user: user?.displayName,
+            userPicture: user?.photoURL
         });
 
         chatRef?.current.scrollIntoView({

@@ -2,6 +2,9 @@ import React from 'react';
 import { SendIcon, AccessTime, Search, HelpOutline } from '@mui/icons-material';
 import styled from '@emotion/styled';
 import { Avatar } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../firebase';
 
 const HeaderContainer = styled.div`
     color:red;
@@ -28,6 +31,7 @@ const HeaderLeft = styled.div`
 const StyledAvatar = styled(Avatar)`
     cursor: pointer;
     transition: all 0.15s;
+
     &:hover {
         opacity: 0.8;
     }
@@ -65,10 +69,16 @@ const HeaderRight = styled.div`
 `
 
 const Header = () => {
+    const user  = useAuthState(auth)
+
     return (
         <HeaderContainer>
             <HeaderLeft>
-                <StyledAvatar />
+                <StyledAvatar
+                onClick={()=> auth.signOut()}
+                src={user?.photoURL}
+                alt={user?.displayName}
+                />
                 <AccessTime />
             </HeaderLeft>
             <HeaderSearch>

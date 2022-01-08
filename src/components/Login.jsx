@@ -39,7 +39,8 @@ const Login = () => {
 
     const signIn = e => {
         e.preventDefault()
-        auth.signInWithPopup(provider).catch(e=> alert(e.message))
+        auth.signInWithPopup(provider)
+        .catch(e=> alert(e.message))
     } 
     return (
         <LoginContainer>
