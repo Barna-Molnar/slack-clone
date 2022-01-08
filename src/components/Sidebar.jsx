@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import { Add, Apps, BookmarkBorder, Create, Drafts, ExpandLess, ExpandMore, FiberManualRecord, FileCopy, Inbox, InsertComment, PeopleAlt } from '@mui/icons-material';
 import React from 'react';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import SidebarOptions from './SidebarOptions';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 const SidebarContainer = styled.div`
     color: white;
@@ -66,7 +67,7 @@ const SidebarInfo = styled.div`
 const Sidebar = () => {
 
     const [channels] = useCollection(db.collection('rooms'));
-  
+    const [user] = useAuthState(auth);
 
     return (
         <SidebarContainer>
@@ -89,12 +90,12 @@ const Sidebar = () => {
             <SidebarOptions icon={FileCopy} title='File browser' />
             <SidebarOptions icon={ExpandLess} title='Show less' />
 
-            <hr/>
-            <SidebarOptions icon={ExpandMore} title='Channels'/> 
             <hr />
-            <SidebarOptions icon={Add}  addChannelOption title='Add Channel'/> 
-            {channels?.docs.map((doc)=> (
-                <SidebarOptions  key={doc.id} id={doc.id} title={doc.data().name}/>
+            <SidebarOptions icon={ExpandMore} title='Channels' />
+            <hr />
+            <SidebarOptions icon={Add} addChannelOption title='Add Channel' />
+            {channels?.docs.map((doc) => (
+                <SidebarOptions key={doc.id} id={doc.id} title={doc.data().name} />
             ))}
         </SidebarContainer>
     );

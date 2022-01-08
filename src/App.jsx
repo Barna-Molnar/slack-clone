@@ -13,6 +13,7 @@ import Chat from './components/Chat';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './firebase';
 import Login from './components/Login';
+import Spinner from 'react-spinkit';
 
 //Switch was replaced with Routes !!!!
 //component was replaced with elements !!!!
@@ -26,10 +27,52 @@ const AppBody = styled.div`
     display: flex;
 `;
 
+const AppLaoding = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+
+
+
+`;
+const AppLaodingContent = styled.div`
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 100px;
+      > img  {
+        height: 100px;
+        padding: 20px;
+        margin-bottom: 40px;
+      }
+
+`;
+
 
 function App() {
   const [user, loading] = useAuthState(auth);
   console.log(user);
+
+  if (loading) {
+    return (
+      <AppLaoding>
+        <AppLaodingContent>
+          <img src='https://cdn-icons-png.flaticon.com/512/2111/2111615.png' alt="" />
+          <Spinner 
+            name='ball-spin-fade-loader'
+            color='purple'
+            fadeIn='none'
+          
+          />
+        </AppLaodingContent>
+
+      </AppLaoding>
+    );
+  }
+
   return (
     <div className="App">
       <Router>
