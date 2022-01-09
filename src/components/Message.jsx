@@ -25,11 +25,11 @@ const MessageInfo = styled.div`
 
 `;
 
-const Message = ({ user, userImage, timestamp, message }) => {
+const Message = ({ user, userImage, timestamp, message}) => {
     return (
-        <MessageContainer>
-            <img src={userImage} alt='userfoto' />
-            <MessageInfo>
+        <MessageContainer >
+            <img src={userImage} alt='' />
+            <MessageInfo >
                 <h4>
                     {user}{' '}
                     <span>{new Date(timestamp?.toDate()).toUTCString()}</span>

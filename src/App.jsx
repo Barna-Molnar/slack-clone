@@ -1,4 +1,3 @@
-import './App.css';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -27,72 +26,56 @@ const AppBody = styled.div`
     display: flex;
 `;
 
-const AppLaoding = styled.div`
+const AppLoadingAnimContainer = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100%;
-
-
-
-`;
-const AppLaodingContent = styled.div`
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 100px;
+    width: 100vw;
       > img  {
+        margin-top: -100px; /*  in order to get the img and the spinner centered  */
         height: 100px;
         padding: 20px;
         margin-bottom: 40px;
       }
-
+   
 `;
-
 
 function App() {
   const [user, loading] = useAuthState(auth);
-  console.log(user);
 
   if (loading) {
     return (
-      <AppLaoding>
-        <AppLaodingContent>
-          <img src='https://cdn-icons-png.flaticon.com/512/2111/2111615.png' alt="" />
-          <Spinner 
-            name='ball-spin-fade-loader'
-            color='purple'
-            fadeIn='none'
-          
-          />
-        </AppLaodingContent>
-
-      </AppLaoding>
+      <AppLoadingAnimContainer>
+        <img src='https://cdn-icons-png.flaticon.com/512/2111/2111615.png' alt="" />
+        <Spinner
+          name='ball-spin-fade-loader'
+          color='purple'
+          fadeIn='none'
+        />
+      </AppLoadingAnimContainer>
     );
   }
 
   return (
     <div className="App">
-      <Router>
-        {!user ? (
-          <Login />
-        ) : (
+      {!user ? (
+        <Login />
+      ) : (
 
-          <>
-            <Header />
-            <AppBody>
-              <Sidebar />
-              <Routes>
-                <Route path="/" element={<Chat />} >
+        <Router>
+          <Header />
+          <AppBody>
+            <Sidebar />
+            <Routes>
+              <Route path="/" element={<Chat />} >
+              </Route>
+            </Routes>
+          </AppBody>
+        </Router>
 
-                </Route>
-              </Routes>
-            </AppBody>
-          </>
-        )}
-      </Router>
+      )}
     </div>
   );
 }

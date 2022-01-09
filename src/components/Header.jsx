@@ -11,6 +11,7 @@ const HeaderContainer = styled.div`
     background-color: var(--slack-color);
     display: flex;
     position: sticky;
+    top: 0;
     width: 100%;
     align-items: center;
     justify-content: space-between;

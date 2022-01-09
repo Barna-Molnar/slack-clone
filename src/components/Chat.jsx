@@ -19,6 +19,9 @@ const Header = styled.div`
     justify-content: space-between;
     padding: 20px;
     border-bottom: 1px solid lightgray;
+    background-color: #fff;
+    /* position: fixed;
+    width: calc(100%  - 260px); */
 `;
 const HeaderLeft = styled.div`
     display: flex;
@@ -46,7 +49,7 @@ const HeaderRight = styled.div`
 `;
 const ChatMessages = styled.div`
 
-
+    padding-bottom: 100px;
 `;
 
 
@@ -66,10 +69,11 @@ const Chat = () => {
     );
 
     useEffect(() => {
-        chatRef.current?.scrollIntoView({ behavior: "smooth" });
+        chatRef.current?.scrollIntoView({
+            behavior: "smooth",
+            alignToTop: true
+        });
     }, [roomId, loading]);
-
-
 
     return (
         <ChatContainer>
@@ -88,7 +92,7 @@ const Chat = () => {
 
                     </Header>
                     <ChatMessages>
-                        {roomMessages?.docs.map(doc => {
+                        {roomMessages?.docs.map((doc, i) => {
                             const { timestamp, message, userPicture, user } = doc.data();
 
                             return (
@@ -98,11 +102,11 @@ const Chat = () => {
                                     timestamp={timestamp}
                                     user={user}
                                     userImage={userPicture}
-
+                                    ref={chatRef}
                                 />
                             );
                         })}
-                        <div ref={chatRef} style={{ paddingBottom: '200px' }} />
+                        <div ref={chatRef} ></div>
                     </ChatMessages>
                     <ChatInput
                         chatRef={chatRef}
