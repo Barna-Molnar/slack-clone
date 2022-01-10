@@ -9,13 +9,10 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 const SidebarContainer = styled.div`
     color: white;
     background-color: var(--slack-color);
-    display: flex;
-    flex-direction: column;
     flex: 0.3;
-    min-height: 100vh;
     border-top: 1px solid #49274b ;
     max-width: 260px;
-   /* margin-top: 60px; */
+    margin-top: 60px;
 
     > hr {
         margin-bottom: 10px ;

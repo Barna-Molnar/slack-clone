@@ -7,11 +7,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase';
 
 const HeaderContainer = styled.div`
-    color:red;
     background-color: var(--slack-color);
     display: flex;
-    position: sticky;
-    top: 0;
+    position: fixed;
     width: 100%;
     align-items: center;
     justify-content: space-between;
