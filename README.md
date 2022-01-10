@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
-## The project is hosted on Firebase and can be seen on the following link: =>  [Link to the App](https://slack-clone-44a49.web.app)
+### The project is hosted on Firebase and can be seen on the following link: =>  [Link to the App](https://slack-clone-44a49.web.app)
 ## Available Scripts
 
 In the project directory, you can run:
